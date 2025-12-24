@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <title>Nossa História</title>
+</head>
+
+<body>
+    <div class="parallax-container">
+        <div class="parallax-layer-slow" id="parallax-layer-2">
+            <div class="deco-item"><img src="./src/img/book-and-people-spring-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/castle-horror-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/flower2-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/friends-logo-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/heart-lock-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/heart-unlock-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/love-svgrepo-com (1).svg"></div>
+            <div class="deco-item"><img src="./src/img/marvel-avengers-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/marvel-captainamerica-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/marvel-ironman-mask-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/sleep-svgrepo-com.svg"></div>
+            <div class="deco-item"><img src="./src/img/mask-sleep-svgrepo-com.svg"></div>
+        </div>
+    </div>
+
+    <header class="timeline-nav">
+        <div class="nav-top">
+            <span class="nav-label">Início</span>
+            <span id="timeline-date">Carregando...</span>
+            <span class="nav-label">Agora</span>
+        </div>
+        <div class="nav-track">
+            <div id="timeline-progress"></div>
+        </div>
+    </header>
+
+    <main class="scroll-container">
+        <div class="scroll-content" id="gallery-track">
+        </div>
+
+        <div id="hero-overlay">
+            <div class="overlay-content">
+                <div id="hero-image-container"></div>
+                <p id="hero-caption"></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Feito com ♥ por Pedro Henrique</p>
+    </footer>
+
+    <audio id="audio-polaroid" src="./src/audio/polaroid.mp3" preload="auto"></audio>
+    <audio id="audio-scroll" src="./src/audio/scroll.mp3" preload="auto"></audio>
+
+    <script src="src/data.js"></script>
+
+    <script src="src/polaroid.js"></script>
+
+    <script src="src/scroll.js"></script>
+</body>
+
+</html>

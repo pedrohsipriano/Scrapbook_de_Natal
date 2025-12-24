@@ -1,0 +1,448 @@
+/* Reset básico */
+:root {
+    --body-bg-color: #f4f1ea;
+    --body-pattern-color: #ddd;
+    --body-pattern-size: 20px;
+    --timeline-bg: rgba(255, 255, 255, 0.8);
+    --timeline-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --timeline-radius: 20px;
+    --timeline-font-size: 1.5rem;
+    --timeline-padding: 5px 20px;
+    --timeline-offset-top: 20px;
+    --polaroid-bg: #ffffff;
+    --polaroid-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    --polaroid-width: 220px;
+    --polaroid-height: 280px;
+    --polaroid-gap: 60px;
+    --polaroid-font-size: 2rem;
+    --polaroid-tilt-transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --polaroid-tilt-max: 2;
+    --polaroid-hover-scale: 1.02;
+    --scroll-padding: 10vw;
+    --scroll-ease: 0.075;
+    --scene-perspective: 1500px;
+    --parallax-speed-factor: 0.3;
+    --touch-scroll-sensitivity: 1.5;
+    --deco-item-font-size: 4rem;
+    --deco-item-opacity: 0.4;
+    --deco-item-blur: 1px;
+    --deco-img-width: 100px;
+    --deco-min-gap: 150;
+    --deco-gap-variance: 300;
+    --deco-min-size: 80;
+    --deco-max-size: 200;
+    --deco-top-min: 5;
+    --deco-top-max: 80;
+    --deco-rotation-range: 30;
+    --deco-start-offset: 50;
+    --deco-init-delay: 100;
+    --deco-resize-delay: 200;
+    --footer-bg: rgba(255, 255, 255, 0.85);
+    --footer-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --footer-radius: 20px;
+    --footer-padding: 6px 18px;
+    --footer-offset: 20px;
+    --footer-text-color: #333;
+    --hero-overlay-bg: rgba(0, 0, 0, 0.6);
+    --hero-overlay-blur: 10px;
+    --hero-caption-color: #333;
+    --hero-caption-size: 1.5rem;
+    --hero-typewriter-speed: 70;
+    --hero-typewriter-default-speed: 50;
+    --hero-typewriter-delay: 500;
+    --audio-click-volume: 0.3;
+    --audio-scroll-volume: 0.2;
+    --audio-scroll-cooldown: 300;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-bg-color);
+    background-image: radial-gradient(var(--body-pattern-color) 1px, transparent 1px);
+    background-size: var(--body-pattern-size) var(--body-pattern-size);
+    font-family: 'Indie Flower', cursive;
+    overflow: hidden;
+    /* Trava o scroll nativo */
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+    /* Impede seleção de texto */
+    -webkit-user-select: none;
+}
+
+/* NAVBAR / TIMELINE */
+.timeline-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    
+    /* Tamanho e cor do container */
+    width: 90%;          /* Ocupa quase toda a largura */
+    max-width: 600px;    /* Mas não fica gigante em monitores */
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 30px; /* Bem arredondado */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Espaço entre texto e barra */
+}
+
+/* Parte de cima (Textos) */
+.nav-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-family: 'Indie Flower', cursive;
+}
+
+/* Texto da data principal (Meio) */
+#timeline-date {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    min-width: 150px;
+    text-align: center;
+}
+
+/* Textos "Início" e "Agora" */
+.nav-label {
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* O Trilho da barra (Cinza claro) */
+.nav-track {
+    width: 100%;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden; /* Garante que a barra não vaze */
+    position: relative;
+}
+
+/* A Barra de Progresso (Colorida) */
+#timeline-progress {
+    width: 0%; /* Começa em 0, o JS vai mudar isso */
+    height: 100%;
+    background: #ff6b6b; /* Cor de destaque (Vermelho meio rosa) */
+    border-radius: 2px;
+    transition: width 0.1s linear; /* Movimento suave */
+}
+
+/* O Container Janela */
+.scroll-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Diz ao navegador que NÓS controlamos o movimento, não ele */
+    touch-action: pan-y;
+}
+
+/* O Trem (Trilho) */
+.scroll-content {
+    display: flex;
+    /* Isso coloca um ao lado do outro */
+    flex-direction: row;
+    /* Força horizontal */
+    width: max-content;
+    /* A largura é a soma dos filhos */
+    height: 100%;
+    align-items: center;
+    /* Centraliza verticalmente */
+    padding-left: var(--scroll-padding);
+    /* Espaço inicial */
+    padding-right: var(--scroll-padding);
+    /* Espaço final */
+    will-change: transform;
+    /* Otimização de GPU */
+
+    /* Isso define a "distância" da câmera. Quanto menor, mais dramático o efeito. */
+    perspective: var(--scene-perspective);
+}
+
+/* =========================
+   PARALLAX LAYER (Camada do Meio)
+========================= */
+
+/* O container fixo que segura a camada */
+.parallax-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Z-index negativo para ficar atrás do conteúdo principal (que é z-index auto/0) */
+    z-index: -1; 
+    pointer-events: none; /* Impede que a decoração bloqueie cliques nas fotos */
+    overflow: hidden;
+}
+
+/* A pista longa que vai se mover */
+.parallax-layer-slow {
+    position: relative;
+    width: 100%; /* Será movido via JS */
+    height: 100%;
+    will-change: transform; /* Otimização de performance */
+}
+
+/* Os itens individuais (corações, carrinhos) */
+.deco-item {
+    position: absolute;
+    /* Estilos opcionais para os marcadores (remova se usar SVGs reais) */
+    font-size: var(--deco-item-font-size);
+    opacity: var(--deco-item-opacity); /* Deixa meio transparente para não roubar a atenção */
+    filter: blur(var(--deco-item-blur)); /* Um leve desfoque ajuda a dar sensação de profundidade */
+}
+
+/* Se usar imagens reais, use isso para controlar o tamanho */
+.deco-item img {
+    width: var(--deco-img-width);
+    height: auto;
+}
+
+
+/* Os Polaroids */
+.polaroid {
+    width: var(--polaroid-width);
+    /* height: var(--polaroid-height);  <-- REMOVIDO: Isso que causava o espaço sobrando */
+    
+    background: var(--polaroid-bg);
+    margin-right: var(--polaroid-gap);
+    
+    flex-shrink: 0; /* Impede que encolham no flexbox pai */
+    box-shadow: var(--polaroid-shadow);
+
+    /* REMOVIDO O FLEX CENTRALIZADOR (não é necessário para altura automática) */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    
+    display: block; /* Garante comportamento de bloco normal */
+
+    font-size: var(--polaroid-font-size);
+    transform-style: preserve-3d;
+    transition: transform var(--polaroid-tilt-transition);
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Variação para parecer bagunçado (opcional) */
+.polaroid:nth-child(even) {
+    transform: rotate(3deg) translateY(30px);
+}
+
+.polaroid:nth-child(odd) {
+    transform: rotate(-2deg) translateY(-30px);
+}
+
+/* Esconde a legenda dentro da polaroid pequena */
+.hidden-caption {
+    display: none;
+}
+
+.legenda {
+    text-align: center;
+    /* Adiciona um espaço entre a foto e o texto */
+    margin-top: 15px;
+    
+    /* Melhora a leitura */
+    line-height: 1.2;
+    color: #444; 
+
+    /* Garante que o texto não force uma única linha */
+    white-space: normal; 
+    
+    /* Permite que palavras longas quebrem para a próxima linha se não couberem */
+    word-wrap: break-word;      /* Para navegadores mais antigos */
+    overflow-wrap: break-word;  /* Padrão moderno */
+    
+    /* Garante que a legenda nunca seja mais larga que a própria polaroid */
+    max-width: 100%; 
+    
+    /* Opcional: Adiciona um pequeno padding lateral para o texto não grudar na borda */
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Ajuste para imagem dentro da polaroid */
+.polaroid-inner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+    /* Evita que a imagem atrapalhe o clique na div pai */
+}
+
+/* Pequeno padding estilo polaroid */
+.polaroid-inner {
+    /* Padding: Topo | Dir | Baixo (Maior para legenda) | Esq */
+    padding: 15px 15px 50px 15px; 
+    
+    background: white;
+    
+    /* height: 100%; <-- REMOVIDO: Deixa o tamanho ser automático */
+    /* width: 100%;  <-- REMOVIDO */
+    
+    display: block;
+    box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+
+/* =========================
+   HERO OVERLAY STYLES
+========================= */
+#hero-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* O fundo desfocado */
+    background: var(--hero-overlay-bg);
+    backdrop-filter: blur(var(--hero-overlay-blur));
+    /* O efeito de blur mágico */
+    -webkit-backdrop-filter: blur(var(--hero-overlay-blur));
+    /* Para Safari */
+    z-index: 9999;
+
+    /* Flex para centralizar o conteúdo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Estado inicial: escondido */
+    opacity: 0;
+    pointer-events: none;
+    /* Permite clicar através dele quando invisível */
+    transition: opacity 0.5s ease;
+
+    user-select: text;
+}
+
+/* Quando a classe .active é adicionada via JS */
+#hero-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.overlay-content {
+    /* O container da foto grande no centro */
+    background: white;
+    padding: 20px 20px 50px 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    max-width: 90vw;
+    max-height: 90vh;
+
+    /* Estado inicial para animação de entrada */
+    transform: scale(0.8) translateY(50px);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Efeito de "pulo" suave */
+}
+
+/* Quando ativo, ele cresce e aparece */
+#hero-overlay.active .overlay-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+#hero-image-container img {
+    max-height: 60vh;
+    width: auto;
+    display: block;
+}
+
+#hero-caption {
+    margin-top: 20px;
+    font-size: var(--hero-caption-size);
+    color: var(--hero-caption-color);
+    
+    /* Define uma altura mínima para evitar que o conteúdo "pule" quando o texto começa a ser digitado */
+    min-height: 1.5em; 
+    
+    text-align: center;
+
+    /* --- CORREÇÃO DA QUEBRA DE LINHA --- */
+    
+    /* Permite que o texto ocupe várias linhas */
+    white-space: normal; 
+    
+    /* Quebra palavras longas se necessário */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    
+    /* Limita a largura máxima para não ficar muito difícil de ler em telas grandes */
+    /* Você pode ajustar esse valor (ex: 600px, 80ch) se achar necessário */
+    max-width: 90%; 
+    
+    /* Centraliza o bloco de texto se ele for menor que o pai */
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Melhora o espaçamento entre as linhas para ficar mais fácil de ler */
+    line-height: 1.4;
+}
+
+footer {
+    position: fixed;
+    bottom: var(--footer-offset);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--footer-bg);
+    padding: var(--footer-padding);
+    border-radius: var(--footer-radius);
+    box-shadow: var(--footer-shadow);
+    color: var(--footer-text-color);
+    z-index: 100;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    /* Ajustes responsivos usando apenas overrides de tokens */
+    :root {
+        --polaroid-width: 160px;
+        --polaroid-gap: 30px;
+        --polaroid-font-size: 1.4rem;
+        --polaroid-tilt-max: 1.5;
+        --scroll-padding: 8vw;
+        --scene-perspective: 1100px;
+        --timeline-font-size: 1.2rem;
+        --timeline-padding: 4px 12px;
+        --timeline-offset-top: 12px;
+        --deco-img-width: 70px;
+        --deco-item-font-size: 3rem;
+        --deco-min-size: 60;
+        --deco-max-size: 140;
+        --footer-padding: 6px 12px;
+        --hero-caption-size: 1.2rem;
+    }
+
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .scroll-container {
+        touch-action: pan-x;
+    }
+
+    #hero-image-container img {
+        max-height: 50vh;
+        width: auto;
+    }
+}

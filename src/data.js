@@ -26,8 +26,8 @@ const memorias = [
         "date": "2021-02-06",
         "displayDate": "Fevereiro, 2021",
         "image": "./src/img/memorias/2021-02-06_Primeira²-foto-juntos.jpg",
-        "caption": "Primeira² foto juntos",
-        "hiddenCaption": "Eu lembro desse dia... Primeira² foto juntos"
+        "caption": "Primeira foto juntos²",
+        "hiddenCaption": "Eu lembro desse dia... Primeira foto juntos²"
     },
     {
         "date": "2021-05-26",
@@ -530,8 +530,8 @@ const memorias = [
         "date": "2023-12-26",
         "displayDate": "Dezembro, 2023",
         "image": "./src/img/memorias/2023.12.26_meu-presente-de-natal-de-2023.jpg",
-        "caption": "26.12.2023 meu presente de natal de 2023",
-        "hiddenCaption": "Eu lembro desse dia... 26.12.2023 meu presente de natal de 2023"
+        "caption": "meu presente de natal de 2023",
+        "hiddenCaption": "Eu lembro desse dia... meu presente de natal de 2023"
     },
     {
         "date": "2024-01-05",
@@ -543,14 +543,14 @@ const memorias = [
     {
         "date": "2024-01-05",
         "displayDate": "Janeiro, 2024",
-        "image": "./src/img/memorias/2024-01-05_Nossa-primeira-viagem³+².jpg",
+        "image": "./src/img/memorias/2024-01-05_Nossa-primeira-viagem(2).jpg",
         "caption": "Nossa primeira viagem³+²",
         "hiddenCaption": "Eu lembro desse dia... Nossa primeira viagem³+²"
     },
     {
         "date": "2024-01-05",
         "displayDate": "Janeiro, 2024",
-        "image": "./src/img/memorias/2024-01-05_Nossa-primeira-viagem³+¹.jpg",
+        "image": "./src/img/memorias/2024-01-05_Nossa-primeira-viagem(3).jpg",
         "caption": "Nossa primeira viagem³+¹",
         "hiddenCaption": "Eu lembro desse dia... Nossa primeira viagem³+¹"
     },
@@ -663,7 +663,7 @@ const memorias = [
         "date": "2024-01-05",
         "displayDate": "Janeiro, 2024",
         "image": "./src/img/memorias/2024.01.05_Nossa-primeira-viagem-juntos.jpg",
-        "caption": "2024.01.05 Nossa primeira viagem juntos",
+        "caption": "Nossa primeira viagem juntos",
         "hiddenCaption": "Eu lembro desse dia... Nossa primeira viagem juntos"
     },
     {
@@ -810,8 +810,8 @@ const memorias = [
         "date": "2025-04-21",
         "displayDate": "Abril, 2025",
         "image": "./src/img/memorias/2025-04-21_21.4.2.2025.jpg",
-        "caption": "21.4.2.2025",
-        "hiddenCaption": "Eu lembro desse dia... 21.4.2.2025"
+        "caption": "21.04.2025",
+        "hiddenCaption": "Eu lembro desse dia... 21.04.2025"
     },
     {
         "date": "2025-04-21",

@@ -81,7 +81,22 @@ function renderGallery() {
         return;
     }
 
-    const sortedMemories = memorias.sort((a, b) => new Date(a.date) - new Date(b.date));
+    // --- NOVA LÓGICA DE ORDENAÇÃO ---
+    const sortedMemories = memorias.sort((a, b) => {
+        // 1. Primeiro compara as DATAS
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+
+        // Se as datas forem diferentes, ordena por data (mais antiga primeiro)
+        if (dateA !== dateB) {
+            return dateA - dateB;
+        }
+
+        // 2. Se as datas forem IGUAIS, desempata pelo NOME do arquivo (ordem alfabética)
+        // Usa o caminho da imagem (ex: ./src/.../A_foto.jpg vem antes de B_foto.jpg)
+        return a.image.localeCompare(b.image);
+    });
+    // --------------------------------
 
     track.innerHTML = ''; // Limpa
 
